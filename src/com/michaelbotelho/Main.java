@@ -201,6 +201,52 @@ public class Main {
         calculateBranchSumsA(node.right, newRunningSum, sums);
     }
 
+    /*
+    The distance between a node in a Binary Tree and the tree's root is called the
+    node's depth.
+    Write a function that takes in a Binary Tree and returns the sum of its nodes'
+    depths.
+
+    Solution # 1 O(n) time | O(h) space
+    */
+    public static int nodeDepthsA(BinaryTree root) {
+        int sumDepths = 0;
+        ArrayList<Level> stack = new ArrayList<Level>();
+        stack.add(new Level(root, 0));
+        while(stack.size() > 0) {
+            Level top = stack.remove(stack.size() - 1);
+            BinaryTree node = top.root;
+            int depth = top.depth;
+            if (node == null) continue;
+            sumDepths += depth;
+            stack.add(new Level(node.left, depth + 1));
+            stack.add(new Level(node.right, depth + 1));
+        }
+        return sumDepths;
+    }
+
+    /*
+     Solution # 2 O(n) time | O(h) space
+    */
+    public static int nodeDepthsB(BinaryTree root) {
+        // Write your code here.
+        return nodeDepthsHelper(root, 0);
+    }
+    public static int nodeDepthsHelper(BinaryTree node, int depth) {
+        if (node == null) return 0;
+        return depth + nodeDepthsHelper(node.left, depth + 1) + nodeDepthsHelper(node.right, depth + 1);
+    }
+
+    /* Level Class */
+    static class Level {
+        public BinaryTree root;
+        int depth;
+        public Level(BinaryTree root, int depth) {
+            this.root = root;
+            this.depth = depth;
+        }
+    }
+
     /* Binary Tree Class */
     public static class BinaryTree {
         int value;
