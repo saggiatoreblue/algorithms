@@ -5,7 +5,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-	    // Test your code here
+        System.out.println(getNthFibA(5));
     }
     /* TWO NUMBER SUM
       Write a function that takes in a non-empty array of distinct integers and an
@@ -288,5 +288,43 @@ public class Main {
                 return this;
             }
         }
+    }
+
+    /*
+    Get Nth Fibonacci Number
+
+    Solution # 1 O(2^n) time | O(n) space
+    */
+    public static int getNthFibA(int n) {
+        Map<Integer, Integer> memoize = new HashMap<Integer, Integer>();
+        memoize.put(1, 0);
+        memoize.put(2, 1);
+        return getNthFibA(n, memoize);
+    }
+    /*
+      Solution # 2 Recursive Memoization O(n) time | O(n) space
+    */
+    public static int getNthFibA(int n, Map<Integer, Integer> memoize) {
+        if (memoize.containsKey(n)) {
+            return memoize.get(n);
+        } else {
+            memoize.put(n, getNthFibA(n - 1, memoize) + getNthFibA(n - 2, memoize));
+            return memoize.get(n);
+        }
+    }
+    /*
+      Solution # 3 Iterative O(n) time | O(1) space
+    */
+    public static int getNthFibC(int n) {
+        int[] lastTwo = {0, 1};
+        int counter = 3;
+
+        while (counter <= n) {
+            int nextFib = lastTwo[0] + lastTwo[1];
+            lastTwo[0] = lastTwo[1];
+            lastTwo[1] = nextFib;
+            counter++;
+        }
+        return n > 1 ? lastTwo[1] : lastTwo[0];
     }
 }
