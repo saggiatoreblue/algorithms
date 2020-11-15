@@ -5,7 +5,8 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(getNthFibA(5));
+  
+
     }
     /* TWO NUMBER SUM
       Write a function that takes in a non-empty array of distinct integers and an
@@ -326,5 +327,9 @@ public class Main {
             counter++;
         }
         return n > 1 ? lastTwo[1] : lastTwo[0];
+    }
+
+    private ArrayList<Integer> reverseArray(ArrayList<Integer> array) {
+       return array;
     }
 }
