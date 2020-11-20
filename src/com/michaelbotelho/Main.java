@@ -5,7 +5,9 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-  
+        int[] arr = new int[] {0, 1, 21, 33, 45, 45, 61, 71, 72, 73};
+        int target = 33;
+        System.out.println(binarySearchA(arr, target));
 
     }
     /* TWO NUMBER SUM
@@ -337,7 +339,7 @@ public class Main {
       Product Sum
 
       Solution # 1 O(n) time | O(d) space d is equal to greatest depth
-      */
+    */
     public static int productSum(List<Object> array) {
         return productSumHelper(array, 1);
     }
@@ -353,5 +355,52 @@ public class Main {
             }
         }
         return sum * multiplier;
+    }
+
+    /*
+     Binary Search
+     Solution # 1 O(n) | O(1) space Iterative
+    */
+    public static int binarySearchA(int[] array, int target) {
+        return binarySearchA(array, target, 0, array.length - 1);
+    }
+
+    public static int binarySearchA(int[] array, int target, int left, int right) {
+       while (left <= right) {
+           int middle = (left + right) / 2;
+           int potentialMatch = array[middle];
+           if (target == potentialMatch) {
+               return middle;
+           } else if (target < potentialMatch) {
+             right = middle - 1;
+           } else {
+             left = middle + 1;
+           }
+       }
+       return -1;
+    }
+    /*
+     Solution # 2 O(n) time | O(Log(n)) Recursive
+    */
+    public static int binarySearchB(int[] array, int target) {
+        // Write your code here.
+        return binarySearchB(array, target, 0, array.length - 1);
+    }
+
+    public static int binarySearchB(int[] array, int target, int left, int right) {
+        if (left > right) {
+            return -1;
+        }
+        int middle = (left + right) / 2;
+        int potentialMatch = array[middle];
+        if (target == potentialMatch) {
+            return middle;
+        } else if (target < potentialMatch) {
+            return binarySearchB(array, target, left, middle - 1);
+        } else if (target > potentialMatch) {
+            return binarySearchB(array, target, middle + 1, right);
+        } else {
+            return -1;
+        }
     }
 }
