@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         int[] arr = new int[] {141, 1, 17, -7, -17, -27, 18, 541, 8, 7, 7};
-        System.out.println(Arrays.toString(findThreeLargestNumbers(arr)));
+        System.out.println(Arrays.toString(insertionSort(arr)));
 
     }
     /* TWO NUMBER SUM
@@ -431,7 +431,7 @@ public class Main {
         }
     }
     /* Bubble Sort
-           Solution # 1 O(n^2) time | O(1) space
+       Solution # 1 O(n^2) time | O(1) space
     */
     public static int[] bubbleSort(int[] array) {
         if (array.length == 0)
@@ -455,5 +455,23 @@ public class Main {
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+    }
+
+    /* Insertion Sort
+       Solution # 1 O(n^2) time | O(1) space
+    */
+    public static int[] insertionSort(int[] array) {
+        // Write your code here.
+        int j, k;
+        for (int i = 1; i < array.length; i++) {
+            k = array[i];
+            j = i - 1;
+            while(j >= 0 && array[j] > k ) {
+                array[j + 1] = array[j];
+                j = j-1;
+            }
+            array[j + 1] = k;
+        }
+        return array;
     }
 }
