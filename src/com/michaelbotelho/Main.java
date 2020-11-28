@@ -493,18 +493,18 @@ public class Main {
        Solution # 1 O(n^2) time | O(1) space
     */
     public static int[] selectionSort(int[] array) {
-       int startIdx = 0;
-       while (startIdx < array.length - 1) {
-           int smallestIdx = startIdx;
-           for (int i = smallestIdx + 1; i<array.length; i++) {
-               if (array[smallestIdx] > array[i]) {
-                   smallestIdx = i;
-               }
-           }
-           swap(smallestIdx, startIdx, array);
-           startIdx++;
-       }
-       return array;
+        int startIdx = 0;
+        while(startIdx < array.length - 1) {
+            int smallestIdx = startIdx;
+            for (int i=startIdx + 1; i < array.length; i++) {
+                if (array[smallestIdx] > array[i]) {
+                    smallestIdx = i;
+                }
+            }
+            swap(smallestIdx, startIdx, array);
+            startIdx++;
+        }
+      return array;
     }
     public static void swap(int i, int j, int[] array) {
         int temp = array[i];
