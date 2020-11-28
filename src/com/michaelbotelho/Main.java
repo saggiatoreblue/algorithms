@@ -5,10 +5,11 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        int[] arr = new int[] {141, 1, 17, -7, -17, -27, 18, 541, 8, 7, 7};
-        System.out.println(Arrays.toString(insertionSort(arr)));
+        int[] arr = new int[]{141, 1, 17, -7, -17, -27, 18, 541, 8, 7, 7};
+        System.out.println(Arrays.toString(selectionSort(arr)));
 
     }
+
     /* TWO NUMBER SUM
       Write a function that takes in a non-empty array of distinct integers and an
       integer representing a target sum. If any two numbers in the input array sum
@@ -25,9 +26,9 @@ public class Main {
       O(n^2) time | O(1) space
     */
     public static int[] twoNumberSumA(int[] array, int targetSum) {
-        for (int i=0; i<array.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             int firstValue = array[i];
-            for (int j = i+1; j<array.length; j++) {
+            for (int j = i + 1; j < array.length; j++) {
                 int secondValue = array[j];
                 if (firstValue + secondValue == targetSum) {
                     return new int[]{firstValue, secondValue};
@@ -36,6 +37,7 @@ public class Main {
         }
         return new int[0];
     }
+
     /*
        Solution # 2
        O(n) time | O(n) space
@@ -52,6 +54,7 @@ public class Main {
         }
         return new int[0];
     }
+
     /*
      Solution # 3
      O(nlog(n)) time | O(1) space
@@ -97,6 +100,7 @@ public class Main {
         }
         return seqIdx == sequence.size();
     }
+
     /*
     Solution # 2
     O(n) time | O(1) space
@@ -126,6 +130,7 @@ public class Main {
     public static int findClosestValueInBstA(BST tree, int target) {
         return findClosestValueInBstA(tree, target, tree.value);
     }
+
     public static int findClosestValueInBstA(BST tree, int target, int closest) {
         if (Math.abs(target - closest) > Math.abs(target - tree.value)) {
             closest = tree.value;
@@ -146,9 +151,10 @@ public class Main {
     public static int findClosestValueInBstB(BST tree, int target) {
         return findClosestValueInBstB(tree, target, tree.value);
     }
+
     public static int findClosestValueInBstB(BST tree, int target, int closest) {
         BST currentNode = tree;
-        while(currentNode != null) {
+        while (currentNode != null) {
             if (Math.abs(target - closest) > Math.abs(target - currentNode.value)) {
                 closest = currentNode.value;
             }
@@ -162,6 +168,7 @@ public class Main {
         }
         return closest;
     }
+
     /* BST class */
     static class BST {
         public int value;
@@ -191,6 +198,7 @@ public class Main {
         return sums;
 
     }
+
     public static void calculateBranchSumsA(BinaryTree node, int runningSum, List<Integer> sums) {
         if (node == null)
             return;
@@ -215,7 +223,7 @@ public class Main {
         int sumDepths = 0;
         ArrayList<Level> stack = new ArrayList<Level>();
         stack.add(new Level(root, 0));
-        while(stack.size() > 0) {
+        while (stack.size() > 0) {
             Level top = stack.remove(stack.size() - 1);
             BinaryTree node = top.root;
             int depth = top.depth;
@@ -234,6 +242,7 @@ public class Main {
         // Write your code here.
         return nodeDepthsHelper(root, 0);
     }
+
     public static int nodeDepthsHelper(BinaryTree node, int depth) {
         if (node == null) return 0;
         return depth + nodeDepthsHelper(node.left, depth + 1) + nodeDepthsHelper(node.right, depth + 1);
@@ -243,6 +252,7 @@ public class Main {
     static class Level {
         public BinaryTree root;
         int depth;
+
         public Level(BinaryTree root, int depth) {
             this.root = root;
             this.depth = depth;
@@ -303,6 +313,7 @@ public class Main {
         memoize.put(2, 1);
         return getNthFibA(n, memoize);
     }
+
     /*
       Solution # 2 Recursive Memoization O(n) time | O(n) space
     */
@@ -314,6 +325,7 @@ public class Main {
             return memoize.get(n);
         }
     }
+
     /*
       Solution # 3 Iterative O(n) time | O(1) space
     */
@@ -331,7 +343,7 @@ public class Main {
     }
 
     private ArrayList<Integer> reverseArray(ArrayList<Integer> array) {
-       return array;
+        return array;
     }
 
     /*
@@ -342,6 +354,7 @@ public class Main {
     public static int productSum(List<Object> array) {
         return productSumHelper(array, 1);
     }
+
     public static int productSumHelper(List<Object> array, int multiplier) {
         int sum = 0;
         for (Object el : array) {
@@ -365,19 +378,20 @@ public class Main {
     }
 
     public static int binarySearchA(int[] array, int target, int left, int right) {
-       while (left <= right) {
-           int middle = (left + right) / 2;
-           int potentialMatch = array[middle];
-           if (target == potentialMatch) {
-               return middle;
-           } else if (target < potentialMatch) {
-             right = middle - 1;
-           } else {
-             left = middle + 1;
-           }
-       }
-       return -1;
+        while (left <= right) {
+            int middle = (left + right) / 2;
+            int potentialMatch = array[middle];
+            if (target == potentialMatch) {
+                return middle;
+            } else if (target < potentialMatch) {
+                right = middle - 1;
+            } else {
+                left = middle + 1;
+            }
+        }
+        return -1;
     }
+
     /*
      Solution # 2 O(n) time | O(Log(n)) Recursive
     */
@@ -402,6 +416,7 @@ public class Main {
             return -1;
         }
     }
+
     /* Find three largest numbers (do not sort array)
        Solution # 1 O(n) time | O(1) space
     */
@@ -412,6 +427,7 @@ public class Main {
         }
         return threeLargest;
     }
+
     public static void updateLargest(int[] threeLargest, int num) {
         if (threeLargest[2] == 0 || num > threeLargest[2]) {
             shiftAndUpdate(threeLargest, num, 2);
@@ -421,8 +437,9 @@ public class Main {
             shiftAndUpdate(threeLargest, num, 0);
         }
     }
+
     public static void shiftAndUpdate(int[] array, int num, int idx) {
-        for (int i=0; i <= idx; i++) {
+        for (int i = 0; i <= idx; i++) {
             if (i == idx) {
                 array[i] = num;
             } else {
@@ -430,20 +447,21 @@ public class Main {
             }
         }
     }
+
     /* Bubble Sort
        Solution # 1 O(n^2) time | O(1) space
     */
     public static int[] bubbleSort(int[] array) {
         if (array.length == 0)
-            return new int[] {};
+            return new int[]{};
         boolean isSorted = false;
         int counter = 0;
         while (!isSorted) {
             isSorted = true;
-            for (int i =0; i< array.length - 1 - counter; i++) {
+            for (int i = 0; i < array.length - 1 - counter; i++) {
                 if (array[i] > array[i + 1]) {
-                    swap(i, i+1, array);
-                    isSorted  = false;
+                    swap(i, i + 1, array);
+                    isSorted = false;
                 }
             }
             counter++;
@@ -451,11 +469,7 @@ public class Main {
         return array;
     }
 
-    public static void swap(int i, int j, int[] array) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
+
 
     /* Insertion Sort
        Solution # 1 O(n^2) time | O(1) space
@@ -466,12 +480,35 @@ public class Main {
         for (int i = 1; i < array.length; i++) {
             k = array[i];
             j = i - 1;
-            while(j >= 0 && array[j] > k ) {
+            while (j >= 0 && array[j] > k) {
                 array[j + 1] = array[j];
-                j = j-1;
+                j = j - 1;
             }
             array[j + 1] = k;
         }
         return array;
+    }
+
+    /* Selection Sort
+       Solution # 1 O(n^2) time | O(1) space
+    */
+    public static int[] selectionSort(int[] array) {
+       int startIdx = 0;
+       while (startIdx < array.length - 1) {
+           int smallestIdx = startIdx;
+           for (int i = smallestIdx + 1; i<array.length; i++) {
+               if (array[smallestIdx] > array[i]) {
+                   smallestIdx = i;
+               }
+           }
+           swap(smallestIdx, startIdx, array);
+           startIdx++;
+       }
+       return array;
+    }
+    public static void swap(int i, int j, int[] array) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 }
