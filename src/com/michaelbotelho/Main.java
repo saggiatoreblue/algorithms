@@ -5,9 +5,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{141, 1, 17, -7, -17, -27, 18, 541, 8, 7, 7};
-        System.out.println(Arrays.toString(selectionSort(arr)));
-
+        System.out.println(isPalindromeB("abcba"));
     }
 
     /* TWO NUMBER SUM
@@ -506,9 +504,51 @@ public class Main {
         }
       return array;
     }
+
+
     public static void swap(int i, int j, int[] array) {
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+    }
+
+
+    /* Is Palindrome
+       Solution # 1 O(n^2) time | O(1) space
+    */
+    public static boolean isPalindrome(String str) {
+        String reversedStr = "";
+        for (int i=str.length() - 1; i >= 0; i--) {
+            reversedStr += str.charAt(i);
+        }
+        return str.equals(reversedStr);
+    }
+
+    /* Solution # 2 Recursive
+        O(n) time | O(n) space
+    */
+    public static boolean isPalindromeA(String str) {
+        return isPalindromeA(str, 0);
+    }
+
+    public static boolean isPalindromeA(String str, int i) {
+        int j = str.length() - 1 - i;
+        return (i >= j) ? true : str.charAt(i) == str.charAt(j) && isPalindromeA(str, i + 1);
+    }
+
+    /* Solution # 3 Pointers
+        O(n) time | O(1) space
+    */
+    public static boolean isPalindromeB(String str) {
+        int leftIdx = 0;
+        int rightIdx = str.length() - 1;
+        while (leftIdx < rightIdx) {
+          if (str.charAt(leftIdx) != str.charAt(rightIdx)) {
+              return false;
+          }
+          leftIdx++;
+          rightIdx--;
+        }
+        return true;
     }
 }
