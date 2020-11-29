@@ -5,7 +5,38 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(isPalindromeB("abcba"));
+        LinkedList<String> placesToVisit = new LinkedList<String>();
+        addInOrder(placesToVisit, "Sydney");
+        addInOrder(placesToVisit, "Melbourne");
+        addInOrder(placesToVisit, "Brisbane");
+        addInOrder(placesToVisit, "Perth");
+        addInOrder(placesToVisit, "Canberra");
+        addInOrder(placesToVisit, "Adelaide");
+        addInOrder(placesToVisit, "Alice Springs");
+        printList(placesToVisit);
+    }
+
+    /* Linked List Demonstration */
+    public static void printList(LinkedList<String> list) {
+        for (String s : list) {
+            System.out.println("Now Visiting: " + s);
+        }
+    }
+
+    public static boolean addInOrder(LinkedList<String> list, String city) {
+        ListIterator<String> linkedListIterator = list.listIterator();
+        while (linkedListIterator.hasNext()) {
+            int comparison = linkedListIterator.next().compareTo(city);
+            if (comparison == 0) {
+                return false;
+            } else if (comparison > 0) {
+                linkedListIterator.previous();
+                linkedListIterator.add(city);
+                return true;
+            }
+        }
+        linkedListIterator.add(city);
+        return true;
     }
 
     /* TWO NUMBER SUM
@@ -551,4 +582,6 @@ public class Main {
         }
         return true;
     }
+
+
 }
