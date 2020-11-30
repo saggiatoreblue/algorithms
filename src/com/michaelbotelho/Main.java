@@ -16,7 +16,7 @@ public class Main {
         addInOrder(placesToVisit, "Alice Springs");
         printList(placesToVisit);
         */
-        System.out.println(caesarCypherEncryptor("xyz", 2));
+        System.out.println(caesarCypherEncryptorA("xyz", 2));
     }
 
     /* Linked List Demonstration */
@@ -588,7 +588,7 @@ public class Main {
 
     /*  Caesar cypher
         Solution # 1
-        O(n) time | O(1) space
+        O(n) time | O(n) space
     */
     public static String caesarCypherEncryptor(String str, int key) {
         char[] newLetters = new char[str.length()];
@@ -602,6 +602,26 @@ public class Main {
     public static char getNewLetter(char letter, int key) {
         int newLetterCode = letter + key;
         return newLetterCode <= 122 ? (char) newLetterCode : (char) (96 + newLetterCode % 122);
+    }
+
+    /*  Caesar cypher
+        Solution # 2
+        O(n) time | O(n) space
+    */
+
+    public static String caesarCypherEncryptorA(String str, int key) {
+        char[] newLetters = new char[str.length()];
+        int newKey = key % 26;
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        for (int i =0; i<str.length(); i++) {
+            newLetters[i] = getNewLetter(str.charAt(i), newKey, alphabet);
+        }
+        return new String(newLetters);
+    }
+
+    public static char getNewLetter(char letter, int key, String alphabet) {
+        int newLetterCode = alphabet.indexOf(letter) + key;
+        return alphabet.charAt(newLetterCode % 26);
     }
 
 }
