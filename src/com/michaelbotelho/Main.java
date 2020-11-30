@@ -5,6 +5,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+        /*
         LinkedList<String> placesToVisit = new LinkedList<String>();
         addInOrder(placesToVisit, "Sydney");
         addInOrder(placesToVisit, "Melbourne");
@@ -14,6 +15,8 @@ public class Main {
         addInOrder(placesToVisit, "Adelaide");
         addInOrder(placesToVisit, "Alice Springs");
         printList(placesToVisit);
+        */
+        System.out.println(caesarCypherEncryptor("xyz", 2));
     }
 
     /* Linked List Demonstration */
@@ -583,5 +586,22 @@ public class Main {
         return true;
     }
 
+    /*  Caesar cypher
+        Solution # 1
+        O(n) time | O(1) space
+    */
+    public static String caesarCypherEncryptor(String str, int key) {
+        char[] newLetters = new char[str.length()];
+        int newKey = key % 26;
+        for (int i=0; i<str.length(); i++) {
+            newLetters[i] += getNewLetter(str.charAt(i), newKey);
+        }
+        return new String(newLetters);
+
+    }
+    public static char getNewLetter(char letter, int key) {
+        int newLetterCode = letter + key;
+        return newLetterCode <= 122 ? (char) newLetterCode : (char) (96 + newLetterCode % 122);
+    }
 
 }
