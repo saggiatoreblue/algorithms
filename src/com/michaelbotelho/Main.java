@@ -16,7 +16,7 @@ public class Main {
         addInOrder(placesToVisit, "Alice Springs");
         printList(placesToVisit);
         */
-        System.out.println(caesarCypherEncryptorA("xyz", 2));
+        System.out.println(runLengthEncoding("AAAAAAAAAAAAABBCCCCDD"));
     }
 
     /* Linked List Demonstration */
@@ -608,7 +608,6 @@ public class Main {
         Solution # 2
         O(n) time | O(n) space
     */
-
     public static String caesarCypherEncryptorA(String str, int key) {
         char[] newLetters = new char[str.length()];
         int newKey = key % 26;
@@ -624,4 +623,25 @@ public class Main {
         return alphabet.charAt(newLetterCode % 26);
     }
 
+    /*  Run Length Encoding
+        Solution # 1
+        O(n) time | O(n) space
+    */
+    public static String runLengthEncoding(String string) {
+        ArrayList<String> encodedStringCharacters = new ArrayList<String>();
+        int runLength = 1;
+        for (int i = 1; i < string.length(); i++) {
+            char currentCharacter = string.charAt(i);
+            char previousCharacter = string.charAt(i-1);
+            if (currentCharacter != previousCharacter || runLength == 9) {
+                 encodedStringCharacters.add(String.valueOf(runLength));
+                 encodedStringCharacters.add(String.valueOf(previousCharacter));
+                 runLength = 0;
+            }
+            runLength += 1;
+        }
+        encodedStringCharacters.add(String.valueOf(runLength));
+        encodedStringCharacters.add(String.valueOf(string.charAt(string.length() - 1)));
+        return String.join(",", encodedStringCharacters);
+    }
 }
