@@ -16,6 +16,11 @@ public class Main {
         addInOrder(placesToVisit, "Alice Springs");
         printList(placesToVisit);
         */
+
+        int array[][] = {{1, 2, 3, 4}, {12, 13, 14, 5}, {11, 16, 15, 6}, {10, 9, 8, 7}};
+
+        //[[1, 2, 3, 4], [12, 13, 14, 5], [11, 16, 15, 6], [10, 9, 8, 7]]
+        System.out.println(spiralTraverse(array));
     }
 
     /* Linked List Demonstration */
@@ -501,7 +506,6 @@ public class Main {
     }
 
 
-
     /* Insertion Sort
        Solution # 1 O(n^2) time | O(1) space
     */
@@ -525,9 +529,9 @@ public class Main {
     */
     public static int[] selectionSort(int[] array) {
         int startIdx = 0;
-        while(startIdx < array.length - 1) {
+        while (startIdx < array.length - 1) {
             int smallestIdx = startIdx;
-            for (int i=startIdx + 1; i < array.length; i++) {
+            for (int i = startIdx + 1; i < array.length; i++) {
                 if (array[smallestIdx] > array[i]) {
                     smallestIdx = i;
                 }
@@ -535,7 +539,7 @@ public class Main {
             swap(smallestIdx, startIdx, array);
             startIdx++;
         }
-      return array;
+        return array;
     }
 
 
@@ -551,7 +555,7 @@ public class Main {
     */
     public static boolean isPalindrome(String str) {
         String reversedStr = "";
-        for (int i=str.length() - 1; i >= 0; i--) {
+        for (int i = str.length() - 1; i >= 0; i--) {
             reversedStr += str.charAt(i);
         }
         return str.equals(reversedStr);
@@ -576,11 +580,11 @@ public class Main {
         int leftIdx = 0;
         int rightIdx = str.length() - 1;
         while (leftIdx < rightIdx) {
-          if (str.charAt(leftIdx) != str.charAt(rightIdx)) {
-              return false;
-          }
-          leftIdx++;
-          rightIdx--;
+            if (str.charAt(leftIdx) != str.charAt(rightIdx)) {
+                return false;
+            }
+            leftIdx++;
+            rightIdx--;
         }
         return true;
     }
@@ -592,12 +596,13 @@ public class Main {
     public static String caesarCypherEncryptor(String str, int key) {
         char[] newLetters = new char[str.length()];
         int newKey = key % 26;
-        for (int i=0; i<str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             newLetters[i] += getNewLetter(str.charAt(i), newKey);
         }
         return new String(newLetters);
 
     }
+
     public static char getNewLetter(char letter, int key) {
         int newLetterCode = letter + key;
         return newLetterCode <= 122 ? (char) newLetterCode : (char) (96 + newLetterCode % 122);
@@ -611,7 +616,7 @@ public class Main {
         char[] newLetters = new char[str.length()];
         int newKey = key % 26;
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        for (int i =0; i<str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             newLetters[i] = getNewLetter(str.charAt(i), newKey, alphabet);
         }
         return new String(newLetters);
@@ -631,11 +636,11 @@ public class Main {
         int runLength = 1;
         for (int i = 1; i < string.length(); i++) {
             char currentCharacter = string.charAt(i);
-            char previousCharacter = string.charAt(i-1);
+            char previousCharacter = string.charAt(i - 1);
             if (currentCharacter != previousCharacter || runLength == 9) {
-                 encodedStringCharacters.add(String.valueOf(runLength));
-                 encodedStringCharacters.add(String.valueOf(previousCharacter));
-                 runLength = 0;
+                encodedStringCharacters.add(String.valueOf(runLength));
+                encodedStringCharacters.add(String.valueOf(previousCharacter));
+                runLength = 0;
             }
             runLength += 1;
         }
@@ -651,7 +656,7 @@ public class Main {
     public static List<Integer[]> threeNumberSum(int[] array, int targetSum) {
         Arrays.sort(array);
         ArrayList<Integer[]> triplets = new ArrayList<Integer[]>();
-        for (int i=0; i < array.length - 2; i++) {
+        for (int i = 0; i < array.length - 2; i++) {
             int left = i + 1;
             int right = array.length - 1;
             while (left < right) {
@@ -669,5 +674,192 @@ public class Main {
             }
         }
         return triplets;
+    }
+
+    /* Smallest Difference
+       Solution # 1
+       O(n) time | O(1) space
+   */
+    public static int[] smallestDifference(int[] arrayOne, int[] arrayTwo) {
+        Arrays.sort(arrayOne);
+        Arrays.sort(arrayTwo);
+
+        int idxOne = 0;
+        int idxTwo = 0;
+
+        int current = Integer.MAX_VALUE;
+        int smallest = Integer.MAX_VALUE;
+
+        int[] smallestPair = new int[2];
+
+        while (idxOne < arrayOne.length && idxTwo < arrayTwo.length) {
+            int firstNum = arrayOne[idxOne];
+            int secondNum = arrayTwo[idxTwo];
+            if (firstNum < secondNum) {
+                current = secondNum - firstNum;
+                idxOne++;
+            } else if (secondNum < firstNum) {
+                current = firstNum - secondNum;
+                idxTwo++;
+            } else {
+                return new int[]{firstNum, secondNum};
+            }
+            if (smallest > current) {
+                smallest = current;
+                smallestPair = new int[]{firstNum, secondNum};
+            }
+        }
+        return smallestPair;
+    }
+
+    /* Move Element to End
+       Solution # 1
+       O(n) time | O(1) space
+   */
+    public static List<Integer> moveElementToEnd(List<Integer> array, int toMove) {
+        int i = 0;
+        int j = array.size() - 1;
+        while (i < j) {
+
+            while (i < j && array.get(j) == toMove) {
+                j--;
+            }
+            if (array.get(i) == toMove) {
+                swap(i, j, array);
+            }
+            i++;
+
+        }
+        return array;
+    }
+
+    public static void swap(int i, int j, List<Integer> array) {
+        int temp = array.get(j);
+        array.set(j, array.get(i));
+        array.set(i, temp);
+    }
+
+    /* Is Monotonic
+          Solution # 1
+          O(n) time | O(1) space
+    */
+    public static boolean isMonotonic(int[] array) {
+        if (array.length <= 2) return true;
+        int direction = array[1] - array[0];
+        for (int i=2; i<array.length; i++) {
+            if (direction == 0) {
+                direction = array[i] - array[i-1];
+                continue;
+            }
+            if (breaksDirection(direction, array[i-1], array[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean breaksDirection(int direction, int prev, int current) {
+        int difference  = current - prev;
+        if (direction > 0) return difference < 0;
+        return difference > 0;
+    }
+
+    /* Is Monotonic
+          Solution # 2
+          O(n) time | O(1) space
+    */
+    public static boolean isMonotonic2(int[] array) {
+        boolean isNotAscending = true;
+        boolean isNotDescending = true;
+        for (int i=1; i<array.length; i++) {
+            if (array[i] < array[i - 1]) {
+                isNotDescending = false;
+            } else if (array[i] > array[i - 1]) {
+                isNotAscending = false;
+            }
+        }
+        return isNotAscending || isNotDescending;
+    }
+
+    /*  Spiral Traverese
+        Solution # 1
+        O(n) time | O(1) space
+    */
+    public static List<Integer> spiralTraverse(int[][] array) {
+        // check if array length is 0, return empty array
+        if (array.length == 0) return new ArrayList<Integer>();
+
+        // declare results array
+        ArrayList<Integer> results = new ArrayList<Integer>();
+        // declare  startRow and EndRow variables : endRow will be the length of the row - 1
+        int startRow = 0;
+        int endRow = array.length - 1;
+        // declare startCol and endCol variables : enCol is equal to the length of the first column - 1
+        int startCol = 0;
+        int endCol = array[0].length - 1;
+        // setup main while loop while starCol is less than endCol, the same for startRow and endRow
+        while(startRow <= endRow && startCol <= endCol) {
+            // in main loop setup  for loops to traverse the matrix
+            // loop #1
+            // looping from 0 to endCol
+            // spin through length of the matrix and add from each column to current row
+            // this loops from startCol to endCol in the first subarray and stores the results
+				/*
+				XXXX
+				****
+				****
+			*/
+            for(int col = startCol; col <= endCol; col++) {
+                results.add(array[startRow][col]);
+            }
+            //
+            // loop #2
+            // this loops from startRow + 1 to endRow gets the row values of the last column in the matrix
+            /*
+             ***X
+             ***X
+             ***X
+             */
+            for(int row = startRow + 1; row <= endRow; row++)  {
+                results.add(array[row][endCol]);
+
+            }
+            // loop #3
+            // this loops from endCol - 1 to startCol in reverse
+            // if startRow is ever endRow break the loop
+            // add the results of each column in the last row
+			/*
+				****
+				****
+				XXXX
+			*/
+            for(int col = endCol - 1; col >= startCol; col--) {
+                if (startRow == endRow) break;
+                results.add(array[endRow][col]);
+            }
+            // loop #4
+            // this loops from endRow - 1 to startRow in reverse
+            // if startCol is ever endCol break the loop
+            // add th e result of each row in the first column
+            //
+            // increment startRow and startCol and decrement endRow and endCol
+			/*
+				****
+				X***
+				X***
+			*/
+            for (int row = endRow - 1; row > startRow; row--) {
+                if (startCol == endCol) break;
+                results.add(array[row][startCol]);
+            }
+            // Shrink area of influence in matrix by a factor of 1 and repeat the above algorithm
+            startRow++;
+            startCol++;
+            endRow--;
+            endCol--;
+            // repeat for the inner cells of the matrix at col + 1 and row + 1
+        }
+        // return results
+        return results;
     }
 }
